@@ -1,14 +1,20 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputComponent from "./Components/InputComponents";
 import { useRouter } from "next/navigation";
+import { useAppContext } from "@/context/Context";
+
 export default function Home() {
-const [text, setText] = useState(false);
+
 const [form, setForm] = useState({name:"", favoriteFood:""});
 const isFilled = form.name != "" && form.favoriteFood != "";
 const [submit, setSubmit] = useState(false);
 const [name, setName]=useState<string>("jermey");
+const data = useAppContext();
+useEffect (() => {
+data.setPageTwoName(name);
+},[])
 const router = useRouter();
 const updateForm =(e:React.ChangeEvent<HTMLInputElement>) =>{
   setForm({...form,[e.target.name]:e.target.value})
@@ -22,14 +28,6 @@ const handleForm = ()=> {
 isFilled ? setSubmit(true) : setForm({name:"" , favoriteFood:""});
 }
 
-const handleClick = () =>{
-  if(!text)
-    {
-setText(true);
-    }else{
-      setText(false);
-    }
-}
 
   const changeTextFunc = (text: string) => {
     setChangeText(text);
@@ -74,10 +72,10 @@ setText(true);
 
         </div>
       </form>
+<p>{name}</p>
       <p className={submit? "": "hidden"} >Thank you for your Submission!</p>
     </main>
-      <p  className={ text ?  "text-lime-600 " : "blur-3xl"}>This is my text</p>
-      <button className="bg-white text-black rounded-lg" onClick={handleClick}>Change text Btn</button>
+
       <button className="bg-white text-black rounded-lg"  onClick={handlePageChange}>Change Page</button>
     </main>
   );

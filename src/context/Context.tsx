@@ -1,9 +1,20 @@
-import React from 'react'
+"use client"
+import React, { createContext, useContext, useState } from 'react'
+interface IContextValue{
+    pageTwoName: string
+    setPageTwoName: (pageTwoName: string) => void
+}
+export const Context = createContext<IContextValue>({} as IContextValue);
+export const AppWrapper = ({children,}: Readonly<{children: React.ReactNode;}>) => {
+const [pageTwoName, setPageTwoName] = useState<string>("");
+return(
+    <Context.Provider value={{pageTwoName, setPageTwoName}}>
+        {children}
+    </Context.Provider>
+)
+}
 
-export const Context = () => {
-  return (
-    <div>
-        
-    </div>
-  )
+ 
+export const useAppContext = () => {
+    return useContext(Context);
 }
