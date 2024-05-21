@@ -5,7 +5,19 @@ import InputComponent from "./Components/InputComponents";
 import { useRouter } from "next/navigation";
 import { useAppContext } from "@/context/Context";
 
+
 export default function Home() {
+//const [blur,setBlur ]= useState(false);
+
+// const handleClick=() =>{
+// if(blur)
+//   {
+//     setBlur(false);
+//   }else{
+//     setBlur(true);
+//   }
+// }
+
 
 const [form, setForm] = useState({name:"", favoriteFood:""});
 const isFilled = form.name != "" && form.favoriteFood != "";
@@ -16,6 +28,7 @@ useEffect (() => {
 data.setPageTwoName(name);
 },[])
 const router = useRouter();
+
 const updateForm =(e:React.ChangeEvent<HTMLInputElement>) =>{
   setForm({...form,[e.target.name]:e.target.value})
 }
@@ -28,7 +41,7 @@ const handleForm = ()=> {
 isFilled ? setSubmit(true) : setForm({name:"" , favoriteFood:""});
 }
 
-
+<p></p>
   const changeTextFunc = (text: string) => {
     setChangeText(text);
   };
@@ -56,7 +69,7 @@ isFilled ? setSubmit(true) : setForm({name:"" , favoriteFood:""});
           <label htmlFor="" className="border rounded p-3">
             Name
           </label>
-          <input type="text" placeholder="Name" name="name" className="border rounder p-3 text-black" onChange={updateForm}  value={form.name} />
+          <input type="text" placeholder="Name"  className="border rounder p-3 text-black" onChange={updateForm} name="name"  value={form.name} />
         </div>
 
         <div className="mb-4">
@@ -75,7 +88,7 @@ isFilled ? setSubmit(true) : setForm({name:"" , favoriteFood:""});
 <p>{name}</p>
       <p className={submit? "": "hidden"} >Thank you for your Submission!</p>
     </main>
-
+   
       <button className="bg-white text-black rounded-lg"  onClick={handlePageChange}>Change Page</button>
     </main>
   );
